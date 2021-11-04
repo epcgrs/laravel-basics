@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 abstract class BuilderQueries
 {
-    public function builderIf()
+    public static function builderIf()
     {
         /**
          * Eloquent builder if function
