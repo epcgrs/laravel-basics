@@ -1,5 +1,5 @@
 {
-    "name": "emmanuelpcg/basics",
+    "name": "emmanuelpcg/laravel-basics",
     "description": "Pacote de funcionalidades para o Laravel com o básico como fazer o crud de uma entidade, manipular imagens, querys simples e etc",
     "autoload": {
         "psr-4": {
