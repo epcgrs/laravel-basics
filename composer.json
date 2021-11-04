@@ -21,5 +21,8 @@
         "illuminate/http": "^8.69",
         "illuminate/database": "^8.69",
         "illuminate/pipeline": "^8.69"
-    }
+    },
+    "license": [
+        "MPL-2.0"
+    ]
 }
