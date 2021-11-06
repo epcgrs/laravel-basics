@@ -136,7 +136,7 @@ class CarsRepository extends ModelBasic
 
     public function paginated(int $perPage) 
     {
-        return parent::pipeApplyFilter(
+        return parent::__pipeApplyFilter(
             [Color::class],
             $this->getEntityInstance()->query()
         )->paginate($perPage);
