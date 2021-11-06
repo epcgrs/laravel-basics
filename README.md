@@ -12,6 +12,8 @@ Package with basic starter features for Laravel.
 - [Install](#install)
 - [If Builder](#if-builder)
 - [Constants](#constants)
+- [Query Builder Apply Filters](#query-builder-filters)
+- [Model Basics](#model-basics)
 
 <a id="install"></a>
 ## Install
@@ -92,3 +94,61 @@ CarTypes::toSelectOptions();
 */
 ```
 
+<a id="query-builder-filters"></a>
+## Query Builder Apply Filters
+
+Add Query filters in Pipelines Requests
+
+For example: I have Car model and want to apply a filter by color attribute 
+
+create a class with name of attribute:
+
+```php
+<?php
+
+namespace App\QueryFilters\Cars;
+
+use Emmanuelpcg\Basics\QueryFilters\Operators\Equals;
+
+class Color extends Equals { }
+
+```
+And for example in Service Repository Pattern:
+
+In your Repository you can do this:
+
+```php
+<?php
+
+namespace App\Repositories;
+
+use App\Models\Car;
+use App\QueryFilters\Cars\Color;
+use Emmanuelpcg\Basics\Repositories\ModelBasic;
+use Illuminate\Database\Eloquent\Model;
+
+class CarsRepository extends ModelBasic
+{
+    protected function getEntityInstance(): Model
+    {
+        return new Car();
+    }
+
+    public function paginated(int $perPage) 
+    {
+        return parent::pipeApplyFilter(
+            [Color::class],
+            $this->getEntityInstance()->query()
+        )->paginate($perPage);
+    }
+}
+```
+
+And now if you pass color in request by query param GET the filter will be applied.
+
+<a id="model-basics"></a>
+## Model Basics Examples
+
+```php 
+
+```

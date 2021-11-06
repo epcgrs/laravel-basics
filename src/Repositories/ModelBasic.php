@@ -12,22 +12,22 @@ abstract class ModelBasic
 {
     use PipeFilters;
 
-    protected bool $createIfHasKey = false;
+    protected $createIfHasKey = false;
 
     protected abstract function getEntityInstance(): Model;
 
-    protected function byKey($key): ?Model
+    protected function __byKey($key): ?Model
     {
         return $this->getEntityInstance()->find($key);
     }
 
-    protected function save(array $data): ?Model
+    protected function __save(array $data): ?Model
     {
         $entity = $this->getEntityInstance();
 
-        if( ! empty($data[$this->getEntityKeyName()]))
+        if( ! empty($data[$this->__getEntityKeyName()]))
         {
-            $entityFound = $this->byKey($data[$this->getEntityKeyName()]);
+            $entityFound = $this->__byKey($data[$this->__getEntityKeyName()]);
 
             if( ! is_null($entityFound) || ! $this->createIfHasKey)
                 $entity = $entityFound;
@@ -36,19 +36,19 @@ abstract class ModelBasic
         return $entity->fill($data)->save() ? $entity : NULL;
     }
 
-    protected function updateByKey($key, array $data): ?Model
+    protected function __updateByKey($key, array $data): ?Model
     {
-        $data[$this->getEntityKeyName()] = $key;
+        $data[$this->__getEntityKeyName()] = $key;
 
-        return $this->save($data);
+        return $this->__save($data);
     }
 
-    protected function getEntityKeyName(): string
+    protected function __getEntityKeyName(): string
     {
         return $this->getEntityInstance()->getKeyName();
     }
 
-    protected function create(array $data): ?Model
+    protected function __create(array $data): ?Model
     {
         $model = $this->getEntityInstance();
 
@@ -58,35 +58,35 @@ abstract class ModelBasic
         return NULL;
     }
 
-    protected function byColumn(string $column, $value): ?Model
+    protected function __byColumn(string $column, $value): ?Model
     {
         return $this->getEntityInstance()->where($column, $value)->first();
     }
 
-    protected function allWhere(string $column, $value): Collection
+    protected function __allWhere(string $column, $value): Collection
     {
         return $this->getEntityInstance()->where($column, $value)->get();
     }
 
-    protected function all(): Collection
+    protected function __all(): Collection
     {
         return $this->getEntityInstance()->all();
     }
 
-    protected function delete($key): bool
+    protected function __delete($key): bool
     {
-        if($model = $this->byKey($key))
+        if($model = $this->__byKey($key))
             return $model->delete();
 
         return FALSE;
     }
 
     /**
-     * @param array|null $filters
-     * @param QueryBuilder | EloquentBuilder | null $builder
+     * @param array $filters
+     * @param EloquentBuilder | QueryBuilder | null $builder
      * @return mixed
      */
-    protected function qbApplyFilters(array $filters, $builder = null)
+    protected function __qbApplyFilters(array $filters, $builder = null)
     {
         return $this->pipeApplyFilter(
             $filters,
