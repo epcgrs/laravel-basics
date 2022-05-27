@@ -150,5 +150,68 @@ And now if you pass color in request by query param GET the filter will be appli
 ## Model Basics Examples
 
 ```php 
+<?php
+
+namespace App\Repositories;
+
+use App\Models\User;
+use App\Repositories\Contracts\IUserRepository;
+use Emmanuelpcg\Basics\Repositories\ModelBasic;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+
+class UserRepository extends ModelBasic implements IUserRepository
+{
+    protected function getEntityInstance(): Model
+    {
+        return new User();
+    }
+
+    public function getByEmail(string $email): ?User
+    {
+        return parent::__byColumn('email', $email);
+    }
+
+    public function getByKey(int $id): ?User
+    {
+        return parent::__byKey($id);
+    }
+
+    public function create(array $data): ?User
+    {
+        return parent::__create($data);
+    }
+
+    public function update(int $id, array $data): ?User
+    {
+        return parent::__updateByKey($id, $data);
+    }
+
+    // if isset $data['id'] is update if not, is create
+    public function save(array $data): ?User
+    {
+        return parent::__save($data);
+    }
+
+    public function get(): ?Collection
+    {
+        return parent::__all();
+    }
+
+    public function getWhereActive(): ?Collection
+    {
+        return parent::__allWhere('active', 1);
+    }
+
+    public function delete(int $id): bool
+    {
+        return parent::__delete($id);
+    }
+
+    public function getPrimaryKeyName(): string
+    {
+        return parent::__getEntityKeyName();
+    }
+}
 
 ```
