@@ -18,7 +18,11 @@ abstract class ImageManipulation
         }
 
         $image = request()->file($requestFile);
-        $imageStream = Image::make($image)->resize($width, $height)->stream('webp', 85);
+
+        $imageStream = Image::make($image)->resize($width, $height, function($constraint){
+            $constraint->aspectRatio();
+        })->stream('webp', 85);
+
         $imageName = '/image/' . ($newName ?: $image->getClientOriginalName()) . '-' . time() . '.webp';
 
         if(Storage::disk($disk)->put($imageName, $imageStream)) {
