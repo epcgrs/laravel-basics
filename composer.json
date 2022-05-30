@@ -16,11 +16,12 @@
         "phpunit/phpunit": "^9.5"
     },
     "require": {
-        "php": "^7.2 || ^7.3 || ^7.4 || ^8.0",
+        "php": "^7.2 || ^7.3 || ^7.4 || ^8.1",
         "illuminate/contracts": "^8.69",
         "illuminate/http": "^8.69",
         "illuminate/database": "^8.69",
-        "illuminate/pipeline": "^8.69"
+        "illuminate/pipeline": "^8.69",
+        "intervention/image": "^2.7.2"
     },
     "license": [
         "MPL-2.0"
