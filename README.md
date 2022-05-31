@@ -14,6 +14,7 @@ Package with basic starter features for Laravel.
 - [Constants](#constants)
 - [Query Builder Apply Filters](#query-builder-filters)
 - [Model Basics](#model-basics)
+- [Image Manipulation](#image-manipulation)
 
 <a id="install"></a>
 ## Install
@@ -215,8 +216,8 @@ class UserRepository extends ModelBasic implements IUserRepository
 }
 
 ```
-
-## Manipulação de Imagens
+<a id="image-manipulation"></a>
+## Image Manipulation
 
 ```php
 <?php
