@@ -6,12 +6,12 @@ use Exception;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
-abstract class ImageManipulation
+trait ImageManipulation
 {
     /**
      * @throws Exception
      */
-    protected function resizeAndSaveImage(string $requestFile = 'image', string $disk = 'public', int $width = 1280, int $height = 720, string $newName = null): string
+    protected function resizeAndSaveImage(string $requestFile = 'image', string $disk = 'public', int $width = 1280, int $height = 720, string $newName = null, string $format = 'png'): string
     {
         if (is_null(request()->file($requestFile))) {
             throw new Exception("File not exists in request.");
@@ -21,7 +21,7 @@ abstract class ImageManipulation
 
         $imageStream = Image::make($image)->resize($width, $height, function($constraint){
             $constraint->aspectRatio();
-        })->stream('webp', 85);
+        })->stream($format, 85);
 
         $imageName = '/image/' . ($newName ?: $image->getClientOriginalName()) . '-' . time() . '.webp';
 

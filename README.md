@@ -215,3 +215,37 @@ class UserRepository extends ModelBasic implements IUserRepository
 }
 
 ```
+
+## Manipulação de Imagens
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Emmanuelpcg\Basics\ImageManipulation\ImageManipulation;
+use Illuminate\Http\Request;
+use Exception;
+
+class UploadsController extends Controller
+{
+    use ImageManipulation;
+
+    public function upload(Request $request)
+    {
+        try {
+            return $this->resizeAndSaveImage(
+                'avatar', // name of field
+                'avatars', // name of disk 
+                300, // width
+                300, // height
+                'user-upload', // new name of image, will be concatenated with timestamp
+                'png' // format to save 
+            );
+        } catch (Exception $exception) {
+            return abort(400, $exception->getMessage());
+        }
+    }
+}
+
+```
