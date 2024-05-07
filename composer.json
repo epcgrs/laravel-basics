@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.2",
+        "php": "^7.4 || ^8.1 || ^8.2",
         "illuminate/contracts": "^v10.9.0",
         "illuminate/http": "^v10.9.0",
         "illuminate/database": "^v10.9.0",
