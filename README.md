@@ -2,8 +2,8 @@
 
 ![Stars](https://img.shields.io/github/stars/epcgrs/laravel-basics)
 [![GitHub license](https://img.shields.io/github/license/epcgrs/laravel-basics)](https://github.com/epcgrs/laravel-basics/blob/main/LICENSE)
-[![Latest Stable Version](http://poser.pugx.org/emmanuelpcg/laravel-basics/v)](https://packagist.org/packages/emmanuelpcg/laravel-basics)
-[![Total Downloads](http://poser.pugx.org/emmanuelpcg/laravel-basics/downloads)](https://packagist.org/packages/emmanuelpcg/laravel-basics)
+![Packagist Downloads](https://img.shields.io/packagist/dt/emmanuelpcg/laravel-basics)
+![Packagist Version](https://img.shields.io/packagist/v/emmanuelpcg/laravel-basics)
 
 ## Description
 ___
