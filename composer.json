@@ -14,11 +14,11 @@
     ],
     "require": {
         "php": "^7.4 || ^8.1 || ^8.2",
-        "illuminate/contracts": "^v10.9.0",
-        "illuminate/http": "^v10.9.0",
-        "illuminate/database": "^v10.9.0",
-        "illuminate/pipeline": "^v10.9.0",
-        "intervention/image": "^2.7.2"
+        "illuminate/contracts": "^v11.27.2",
+        "illuminate/http": "^v11.27.2",
+        "illuminate/database": "^v11.27.2",
+        "illuminate/pipeline": "^v11.27.2",
+        "intervention/image": "^3.8.0"
     },
     "license": [
         "MPL-2.0"
