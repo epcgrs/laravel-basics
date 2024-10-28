@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Emmanuelpcg\Basics\ImageManipulation;
 
 use Exception;
 use Illuminate\Http\UploadedFile;
@@ -10,7 +10,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use InvalidArgumentException;
 
-class ImageProcessor
+trait ImageManipulation
 {
     private ImageManager $manager;
 
@@ -32,7 +32,7 @@ class ImageProcessor
      * @return string The saved file path
      * @throws InvalidArgumentException|Exception
      */
-    public function processAndSave(
+    public function resizeAndSaveImage(
         mixed $requestFile,
         int $width,
         int $height,
