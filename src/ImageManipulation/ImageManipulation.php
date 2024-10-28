@@ -14,7 +14,8 @@ trait ImageManipulation
 {
     private ImageManager $manager;
 
-    public function __construct()
+
+    private function bootImageManipulation(): void
     {
         $this->manager = new ImageManager(new Driver());
     }
@@ -41,6 +42,10 @@ trait ImageManipulation
         ?string $newName = null,
         string $disk = 'public'
     ): string {
+
+        if (!isset($this->manager)) {
+            $this->bootImageManipulation();
+        }
         
         if (!$requestFile instanceof UploadedFile) {
             throw new InvalidArgumentException("No valid file found in request");
