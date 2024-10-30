@@ -9,18 +9,27 @@ use Illuminate\Support\Str;
 
 abstract class Filter
 {
-    protected bool $ignoreEmpty  = TRUE;
+    protected bool $ignoreEmpty = true;
+    protected ?string $columnName = null;
 
     /**
+     * Aplica o filtro ao builder.
+     *
      * @param EloquentBuilder|QueryBuilder $builder
      * @return EloquentBuilder|QueryBuilder
      */
     protected abstract function apply($builder);
 
+    /**
+     * Processa o request e aplica o filtro, se aplicável.
+     *
+     * @param $request
+     * @param Closure $next
+     * @return mixed
+     */
     public function handle($request, Closure $next)
     {
-        if ( ! $this->canApply())
-        {
+        if (! $this->canApply()) {
             return $next($request);
         }
 
@@ -29,28 +38,46 @@ abstract class Filter
         return $this->apply($builder);
     }
 
+    /**
+     * Obtém o nome do filtro em snake_case a partir do nome da classe.
+     *
+     * @return string
+     */
     protected function filterName(): string
     {
         return Str::snake(class_basename($this));
     }
 
+    /**
+     * Obtém o nome da coluna para aplicar o filtro.
+     *
+     * @return string
+     */
     protected function columnName(): string
     {
         return $this->columnName ?? $this->filterName();
     }
 
-    protected function getValue()
+    /**
+     * Obtém o valor do filtro do request.
+     *
+     * @return mixed
+     */
+    protected function getValue(): mixed
     {
-        if( ! ($value = get_query_filters_request($this->columnName())))
-            $value = request($this->columnName());
-
-        return $value;
+        return request()->query($this->columnName()) 
+               ?? request()->input($this->columnName());
     }
 
+    /**
+     * Verifica se o filtro pode ser aplicado, dependendo da presença do valor.
+     *
+     * @return bool
+     */
     protected function canApply(): bool
     {
         $value = $this->getValue();
 
-        return $value || ($this->ignoreEmpty === FALSE && $value == '');
+        return filled($value) || (! $this->ignoreEmpty && $value === '');
     }
 }
